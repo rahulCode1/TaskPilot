@@ -1,6 +1,6 @@
 import axios from "axios";
 import TaskDetails from "../components/task/TaskDetails";
-import { Await, useLoaderData, useRouteLoaderData } from "react-router-dom";
+import { Await,  useRouteLoaderData } from "react-router-dom";
 import privateApi from "../api/axios";
 
 import {
@@ -9,7 +9,7 @@ import {
   showErrorToast,
 } from "../utils/toast";
 import LoadingSpinner from "../components/loading/LoadingSpinner";
-import { Suspense, useState } from "react";
+import { Suspense } from "react";
 
 const TaskDetailsPage = () => {
   const { task } = useRouteLoaderData("task_detail_id");
