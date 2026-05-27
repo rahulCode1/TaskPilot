@@ -70,6 +70,7 @@ const Teams = () => {
                       src={remove}
                       className="img-fluid"
                       style={{ width: "20px" }}
+                      alt="Remove team"
                     />
                   </button>
                 </td>
