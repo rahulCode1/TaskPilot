@@ -1,4 +1,4 @@
-# Work Tracker
+# Workasana
 
 A full-stack work track web app where you can browse, search, add, edit & view detailed task.
 Built with React frontend, Express/Node backend, MongoDB, database & JWT-based authentication.
