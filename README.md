@@ -7,7 +7,7 @@ Built with React frontend, Express/Node backend, MongoDB, database & JWT-based a
 
 ## Demo Link
 
-[Live Demo](https://fsp-1-assignment-frontend-sigma.vercel.app)
+[Live Demo](https://task-pilot-pearl.vercel.app)
 
 ---
 
@@ -22,7 +22,7 @@ Built with React frontend, Express/Node backend, MongoDB, database & JWT-based a
 ## Quick Start
 
 ```
-git clone https://github.com/rahulCode1/FSP1_Assignment_frontend.git
+git clone https://github.com/rahulCode1/TaskPilot.git
 cd FSP1_Assignment_frontend
 npm install
 npm start  # or `npm start`
