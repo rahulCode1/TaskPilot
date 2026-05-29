@@ -34,7 +34,7 @@ const Header = () => {
       {/* Mobile Header - Visible only on small screens */}
       <header className="d-md-none bg-info-subtle border-bottom position-fixed top-0 start-0 end-0 z-3">
         <div className="d-flex justify-content-between align-items-center px-3 py-3">
-          <h4 className="fw-bold mb-0">Workasana</h4>
+          <h4 className="fw-bold mb-0">TaskPilot</h4>
           <button
             className="btn btn-info"
             onClick={toggleMobileMenu}
