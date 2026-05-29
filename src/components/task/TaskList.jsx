@@ -13,33 +13,33 @@ const TaskList = ({ tasks }) => {
     searchParams.get("owner") === null
       ? tasks
       : tasks.filter((task) =>
-          task.owners.some((owner) => owner._id === searchParams.get("owner"))
+          task.owners.some((owner) => owner._id === searchParams.get("owner")),
         );
 
   filteredTask =
     searchParams.get("tag") === null
       ? filteredTask
       : filteredTask.filter((task) =>
-          task.tags.includes(searchParams.get("tag"))
+          task.tags.includes(searchParams.get("tag")),
         );
   filteredTask =
     searchParams.get("status") === null
       ? filteredTask
       : filteredTask.filter(
-          (task) => task.status === searchParams.get("status")
+          (task) => task.status === searchParams.get("status"),
         );
   filteredTask =
     searchParams.get("team") === null
       ? filteredTask
       : filteredTask.filter(
-          (task) => task.team._id === searchParams.get("team")
+          (task) => task.team._id === searchParams.get("team"),
         );
 
   filteredTask =
     searchParams.get("project") === null
       ? filteredTask
       : filteredTask.filter(
-          (task) => task.project._id === searchParams.get("project")
+          (task) => task.project._id === searchParams.get("project"),
         );
 
   const sortViaCloseTime = [...filteredTask];
@@ -144,8 +144,8 @@ const TaskList = ({ tasks }) => {
                   >
                     <option value="">All Tags</option>
                     {tags.map((tag) => (
-                      <option key={tag.name} value={tag.name}>
-                        {tag.name}
+                      <option key={tag} value={tag}>
+                        {tag}
                       </option>
                     ))}
                   </select>

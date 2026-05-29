@@ -112,7 +112,7 @@ const Header = () => {
 
       {/* Sidebar - Visible only on medium and large screens */}
       <aside className="d-none d-md-flex bg-info-subtle vh-100 flex-column">
-        <h3 className="text-center py-4 border-bottom fw-bold">Workasana</h3>
+        <h3 className="text-center py-4 border-bottom fw-bold">TaskPilot</h3>
 
         <ul className="nav nav-pills flex-column align-items-center gap-2 mt-3 flex-grow-1">
           {navItems.map((item) => (
