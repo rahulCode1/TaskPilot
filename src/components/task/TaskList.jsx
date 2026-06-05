@@ -82,7 +82,10 @@ const TaskList = ({ tasks }) => {
     <main className="py-3">
       <div className="d-flex justify-content-between align-items-center py-3">
         <h1>Tasks </h1>
-        <button onClick={() => setTaskModal(true)} className="btn btn-primary">
+        <button
+          onClick={() => setTaskModal(true)}
+          className="btn btn-info text-light fw-semibold"
+        >
           Add new Task
         </button>
       </div>

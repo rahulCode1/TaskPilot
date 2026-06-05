@@ -19,6 +19,9 @@ const WorkTrackProvider = ({ children }) => {
   const [isLoading, setLoading] = useState(false);
   const [user, setUser] = useState(localStorage.getItem("userId"));
 
+
+  console.log(user)
+
   const fetchTeam = async () => {
     try {
       const response = await axios.get(

@@ -14,8 +14,6 @@ const Dashboard = ({ tasks }) => {
   const taskFetcher = useFetcher();
   const { projects } = useWorkContext();
 
-
-  // Close modal when task submission is complete
   useEffect(() => {
     if (taskFetcher.state === "idle" && taskFetcher.data) {
       setTaskModal(false);
@@ -57,7 +55,10 @@ const Dashboard = ({ tasks }) => {
       <div>
         <div className="d-flex justify-content-between py-4">
           <h2>My Projects </h2>
-          <button onClick={() => setIsOpen(true)} className="btn btn-primary">
+          <button
+            onClick={() => setIsOpen(true)}
+            className="btn btn-info text-light fw-semibold"
+          >
             + Add Project
           </button>
         </div>

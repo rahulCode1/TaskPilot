@@ -11,7 +11,7 @@ const Projects = ({ tasks }) => {
       acc[key] = acc[key] || [];
       acc[key].push(curr);
       return acc;
-    }, {})
+    }, {}),
   ).map(([name, tasks]) => ({ name, tasks }));
 
   const [isModalOpen, setModelOpen] = useState(false);
@@ -33,7 +33,7 @@ const Projects = ({ tasks }) => {
           <h2 className="mb-0 fw-bold text-info">All Projects</h2>
           <button
             onClick={() => setModelOpen(true)}
-            className="btn btn-info btn-lg shadow-sm"
+            className="btn btn-info  shadow-sm text-light fw-semibold"
           >
             <i className="bi bi-plus-circle me-2"></i>
             Add Project
@@ -95,15 +95,15 @@ const Projects = ({ tasks }) => {
                                       task.status.toLowerCase() === "completed"
                                         ? "bg-success"
                                         : task.status.toLowerCase() ===
-                                          "in progress"
-                                        ? "bg-warning text-dark"
-                                        : task.status.toLowerCase() ===
-                                          "pending"
-                                        ? "bg-secondary"
-                                        : task.status.toLowerCase() ===
-                                          "on hold"
-                                        ? "bg-danger"
-                                        : "bg-info text-dark"
+                                            "in progress"
+                                          ? "bg-warning text-dark"
+                                          : task.status.toLowerCase() ===
+                                              "pending"
+                                            ? "bg-secondary"
+                                            : task.status.toLowerCase() ===
+                                                "on hold"
+                                              ? "bg-danger"
+                                              : "bg-info text-dark"
                                     }`}
                                   >
                                     {task.status}

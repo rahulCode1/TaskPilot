@@ -1,145 +1,96 @@
 import { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { useWorkContext } from "../../context/workTrackContext";
 
 const Header = () => {
   const { logout, user } = useWorkContext();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
-  const handleLogout = () => {
-    logout();
-  };
-
-  const toggleMobileMenu = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen);
-  };
-
-  const closeMobileMenu = () => {
-    setIsMobileMenuOpen(false);
-  };
-
   const navItems = [
-    { to: "/", label: "Dashboard", end: true },
-    { to: "/projects", label: "Projects" },
-    { to: "/list", label: "Tasks" },
-    { to: "/team", label: "Team" },
-    { to: "/report", label: "Report" },
-    ...(user ? [{ to: "/setting", label: "Setting" }] : []),
-    { to: "/signup", label: "Signup" },
-    ...(!user ? [{ to: "/login", label: "Login" }] : []),
+    { to: "/", label: "Dashboard  📊", end: true },
+    { to: "/projects", label: "Pojects   📁" },
+    { to: "/list", label: "Tasks      ✅" },
+    { to: "/team", label: "Team    👥" },
+    { to: "/report", label: "Report     📈" },
+    ...(user ? [{ to: "/setting", label: "Settings   ⚙️" }] : []),
+
+    ...(!user ? [{ to: "/signup", label: "Signup 🔒" }] : []),
+    ...(!user ? [{ to: "/login", label: "Login 🔑" }] : []),
   ];
 
   return (
     <>
-      {/* Mobile Header - Visible only on small screens */}
-      <header className="d-md-none bg-info-subtle border-bottom position-fixed top-0 start-0 end-0 z-3">
-        <div className="d-flex justify-content-between align-items-center px-3 py-3">
-          <h4 className="fw-bold mb-0">TaskPilot</h4>
+      {/* Mobile view */}
+      <div className="w-100 d-md-none bg-info">
+        <div className="d-flex justify-content-between align-items-center p-3 border-bottom border-light">
+          <Link to="/" className="text-decoration-none">
+            <h2 className="text-light">TaskPilot</h2>
+          </Link>
           <button
-            className="btn btn-info"
-            onClick={toggleMobileMenu}
-            aria-label="Toggle menu"
+            onClick={() => setIsMobileMenuOpen((prevStat) => !prevStat)}
+            className="btn btn-outline-light"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              fill="currentColor"
-              viewBox="0 0 16 16"
-            >
-              <path
-                fillRule="evenodd"
-                d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"
-              />
-            </svg>
+            ☰
           </button>
         </div>
 
-        {/* Mobile Dropdown Menu */}
         {isMobileMenuOpen && (
-          <>
-            <div
-              className="position-fixed top-0 start-0 w-100 h-100 bg-dark bg-opacity-50 z-2"
-              onClick={closeMobileMenu}
-            ></div>
-            <nav
-              className="position-fixed top-0 end-0 bg-info-subtle h-100 shadow-lg z-3 overflow-auto"
-              style={{ width: "250px" }}
-            >
-              <div className="d-flex justify-content-between align-items-center p-3 border-bottom">
-                <h5 className="fw-bold mb-0">Menu</h5>
-                <button
-                  className="btn-close"
-                  onClick={closeMobileMenu}
-                  aria-label="Close menu"
-                ></button>
-              </div>
-              <ul className="nav nav-pills flex-column gap-2 p-3">
-                {navItems.map((item) => (
-                  <li key={item.to} className="nav-item">
-                    <NavLink
-                      to={item.to}
-                      end={item.end}
-                      onClick={closeMobileMenu}
-                      className={({ isActive }) =>
-                        `nav-link ${
-                          isActive ? "active bg-info text-white" : "text-dark"
-                        }`
-                      }
-                    >
-                      {item.label}
-                    </NavLink>
-                  </li>
-                ))}
-                {user && (
-                  <li className="nav-item mt-3">
-                    <button
-                      onClick={() => {
-                        handleLogout();
-                        closeMobileMenu();
-                      }}
-                      className="btn btn-secondary w-100"
-                    >
-                      Logout
-                    </button>
-                  </li>
-                )}
-              </ul>
-            </nav>
-          </>
+          <nav className="w-100 nav  d-flex flex-column d-md-none text-center gap-3 bg-info py-3">
+            {navItems.map((nav, index) => (
+              <li className="nav-item">
+                <NavLink
+                  key={index}
+                  to={nav.to}
+                  className={({ isActive }) =>
+                    `d-block ${isActive ? "bg-white text-primary fw-semibold" : "text-light"} py-2 text-decoration-none`
+                  }
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  {nav.label}
+                </NavLink>
+              </li>
+            ))}
+          </nav>
         )}
-      </header>
+      </div>
 
-      {/* Sidebar - Visible only on medium and large screens */}
-      <aside className="d-none d-md-flex bg-info-subtle vh-100 flex-column">
-        <h3 className="text-center py-4 border-bottom fw-bold">TaskPilot</h3>
+      {/* Desktop View */}
+      <div
+        className="d-none d-md-block bg-info flex-shrink-0 position-sticky top-0 shadow-lg"
+        style={{
+          width: "220px",
+          height: "100dvh",
+        }}
+      >
+        <aside className="d-none d-md-flex flex-column gap-4 text-center h-100">
+          <Link to="/" className="text-decoration-none">
+            <h2 className="text-light border-bottom border-1 border-light py-4 mb-5">
+              TaskPilot
+            </h2>
+          </Link>
 
-        <ul className="nav nav-pills flex-column align-items-center gap-2 mt-3 flex-grow-1">
-          {navItems.map((item) => (
-            <li key={item.to} className="nav-item w-100 text-center">
+          {navItems.map((nav, index) => (
+            <li className="nav-item ">
               <NavLink
-                to={item.to}
-                end={item.end}
+                key={index}
+                to={nav.to}
                 className={({ isActive }) =>
-                  `nav-link ${
-                    isActive ? "active bg-info text-white" : "text-dark"
-                  }`
+                  `d-block ${isActive ? "bg-white  text-primary fw-semibold shadow-sm" : "text-light"} text-decoration-none px-4 py-2`
                 }
               >
-                {item.label}
+                {nav.label}
               </NavLink>
             </li>
           ))}
-        </ul>
 
-        {user && (
-          <div className="p-3 mt-auto">
-            <button onClick={handleLogout} className="btn btn-secondary w-100">
-              Logout
-            </button>
-          </div>
-        )}
-      </aside>
+          {user && (
+            <div className="d-none d-md-block mt-auto p-3">
+              <button onClick={logout} className="btn btn-outline-light w-100">
+                Logout ➜]
+              </button>
+            </div>
+          )}
+        </aside>
+      </div>
     </>
   );
 };

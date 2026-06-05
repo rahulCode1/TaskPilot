@@ -1,6 +1,7 @@
 import WorkTrackProvider from './context/workTrackContext';
 import './App.css';
 import "bootstrap/dist/css/bootstrap.min.css"
+import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import "react-toastify/dist/ReactToastify.css"
 import { createBrowserRouter, Navigate, RouterProvider } from "react-router-dom"
 import DashboardScreenPage, { loader as taskLoader } from './pages/DashboardScreenPage';

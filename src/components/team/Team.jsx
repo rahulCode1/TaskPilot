@@ -33,7 +33,7 @@ const Team = ({ tasks }) => {
           <h2 className="mb-0 fw-bold text-info">All Tasks</h2>
           <button
             onClick={() => setModelIsOpen(true)}
-            className="btn btn-info btn-lg shadow-sm"
+            className="btn btn-info btn-lg shadow-sm text-light fw-semibold"
           >
             <i className="bi bi-plus-circle me-2"></i>
             Add Team
