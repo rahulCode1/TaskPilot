@@ -17,6 +17,10 @@ const Header = () => {
     ...(!user ? [{ to: "/login", label: "Login 🔑" }] : []),
   ];
 
+  const handleLogout = () => {
+    logout();
+    setIsMobileMenuOpen(false);
+  };
   return (
     <>
       {/* Mobile view */}
@@ -49,6 +53,17 @@ const Header = () => {
                 </NavLink>
               </li>
             ))}
+
+            {user && (
+              <div className="d-md-none mt-auto p-3">
+                <button
+                  onClick={handleLogout}
+                  className="btn btn-outline-light w-100"
+                >
+                  Logout ➜]
+                </button>
+              </div>
+            )}
           </nav>
         )}
       </div>

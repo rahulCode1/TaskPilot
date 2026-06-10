@@ -8,8 +8,7 @@ const TeamForm = ({ setModelIsOpen }) => {
     description: "",
   };
   const [formData, setFormData] = useState(initialData);
-  const { addTeam, isLoading } = useWorkContext();
-  const { user } = useWorkContext();
+  const { addTeam, isLoading, user, setError } = useWorkContext();
   const navigate = useNavigate();
 
   const onChangeForm = (e) => {
@@ -23,9 +22,12 @@ const TeamForm = ({ setModelIsOpen }) => {
     e.preventDefault();
 
     if (!user) {
+      setError("Please login to add new team.");
+
       return navigate("/login");
     }
-    const response = await addTeam(formData);
+
+    const response = await addTeam(formData, navigate);
 
     if (response.success === false) {
       return;

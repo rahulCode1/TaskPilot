@@ -9,8 +9,7 @@ const AddProject = ({ setIsOpen }) => {
     description: "",
   };
   const [formData, setFormData] = useState(initialData);
-  const { addProject, isLoading } = useWorkContext();
-  const { user } = useWorkContext();
+  const { addProject, isLoading, user,  setError } = useWorkContext();
   const onChangeForm = (e) => {
     setFormData((prevStat) => ({
       ...prevStat,
@@ -24,10 +23,12 @@ const AddProject = ({ setIsOpen }) => {
     e.preventDefault();
 
     if (!user) {
+      setError("Please login to add new project.");
+
       return navigate("/login");
     }
 
-    const response = await addProject(formData);
+    const response = await addProject(formData, navigate);
 
     if (response.success === false) {
       return;

@@ -17,70 +17,83 @@ const WorkTrackProvider = ({ children }) => {
   const [tags, setTags] = useState([]);
   const [projects, setProjects] = useState([]);
   const [isLoading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
   const [user, setUser] = useState(localStorage.getItem("userId"));
 
-
-  console.log(user)
+console.log(teams)
 
   const fetchTeam = async () => {
     try {
       const response = await axios.get(
-        `${process.env.REACT_APP_BACKEND_URL}/team`
+        `${process.env.REACT_APP_BACKEND_URL}/team`,
       );
       const teams = response?.data?.teams;
       setTeams(teams);
-    } catch (error) {}
+    } catch (error) {
+      console.log(error.response?.data?.message);
+    }
   };
   const fetchUser = async () => {
     try {
       const response = await axios.get(
-        `${process.env.REACT_APP_BACKEND_URL}/user`
+        `${process.env.REACT_APP_BACKEND_URL}/user`,
       );
 
       const users = response.data.users;
       setUsers(users);
-    } catch (error) {}
+    } catch (error) {
+      console.log(error.response?.data?.message);
+    }
   };
 
   const fetchTags = async () => {
     try {
       const response = await axios.get(
-        `${process.env.REACT_APP_BACKEND_URL}/tags`
+        `${process.env.REACT_APP_BACKEND_URL}/tags`,
       );
 
       const tags = response.data.tags;
       setTags(tags);
-    } catch (error) {}
+    } catch (error) {
+      console.log(error.response?.data?.message);
+    }
   };
   const fetchProjects = async () => {
     try {
       const response = await axios.get(
-        `${process.env.REACT_APP_BACKEND_URL}/project`
+        `${process.env.REACT_APP_BACKEND_URL}/project`,
       );
 
       const projects = response.data.projects;
 
       setProjects(projects);
-    } catch (error) {}
+    } catch (error) {
+      console.log(error.response?.data?.message);
+    }
   };
 
-  const addTeam = async (teamData) => {
+  const addTeam = async (teamData, navigate) => {
+    if (!user) {
+      setError("Please login to add new team.");
+      return navigate("/login");
+    }
+
     let toastId = showLoadingToast("Adding team...");
 
     try {
       setLoading(true);
       const response = await privateApi.post(
         `${process.env.REACT_APP_BACKEND_URL}/team`,
-        teamData
+        teamData,
       );
 
-      console.log(response);
+      console.log(response.data);
 
       setTeams((prev) => [response.data.team, ...prev]);
 
       showSuccessToast(
         toastId,
-        response.data.message || "Team added successfully."
+        response.data.message || "Team added successfully.",
       );
 
       return {
@@ -90,7 +103,7 @@ const WorkTrackProvider = ({ children }) => {
     } catch (error) {
       showErrorToast(
         toastId,
-        error.response?.data?.message || "Failed to add new team."
+        error.response?.data?.message || "Failed to add new team.",
       );
       return {
         success: false,
@@ -100,21 +113,27 @@ const WorkTrackProvider = ({ children }) => {
       setLoading(false);
     }
   };
-  const addProject = async (projectData) => {
+  const addProject = async (projectData, navigate) => {
+    if (!user) {
+      setError("Please login to add new project.");
+      return navigate("/login");
+    }
+
+
     let toastId = showLoadingToast("Adding project...");
 
     try {
       setLoading(true);
       const response = await privateApi.post(
         `${process.env.REACT_APP_BACKEND_URL}/project`,
-        projectData
+        projectData,
       );
 
       setProjects((prev) => [response.data.project, ...prev]);
 
       showSuccessToast(
         toastId,
-        response.data.message || "Project added successfully."
+        response.data.message || "Project added successfully.",
       );
       return {
         success: true,
@@ -123,7 +142,7 @@ const WorkTrackProvider = ({ children }) => {
     } catch (error) {
       showErrorToast(
         toastId,
-        error.response?.data?.message || "Something went wrong."
+        error.response?.data?.message || "Something went wrong.",
       );
 
       return {
@@ -142,21 +161,21 @@ const WorkTrackProvider = ({ children }) => {
     try {
       const response = await axios.post(
         `${process.env.REACT_APP_BACKEND_URL}/user/signup`,
-        data
+        data,
       );
 
       const user = response.data.user;
       setUsers((prevStat) => [user, ...prevStat]);
       showSuccessToast(
         toastId,
-        response.data?.message || "User created successfully."
+        response.data?.message || "User created successfully.",
       );
 
       return { success: true, data: response.data };
     } catch (error) {
       showErrorToast(
         toastId,
-        error.response?.data?.message || "Failed to create user."
+        error.response?.data?.message || "Failed to create user.",
       );
 
       return {
@@ -177,7 +196,7 @@ const WorkTrackProvider = ({ children }) => {
         {
           email,
           password,
-        }
+        },
       );
 
       const { token, userId, message } = response.data;
@@ -193,13 +212,10 @@ const WorkTrackProvider = ({ children }) => {
     } catch (error) {
       showErrorToast(
         toastId,
-        error.response?.data?.message || "Failed to log in."
+        error.response?.data?.message || "Failed to log in.",
       );
     }
   };
-
-  
-
 
   const logout = () => {
     const toastId = showLoadingToast("Loging out...");
@@ -222,6 +238,8 @@ const WorkTrackProvider = ({ children }) => {
         teams,
         users,
         tags,
+        error,
+        setError,
         projects,
         setProjects,
         setTeams,
