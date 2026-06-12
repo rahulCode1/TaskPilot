@@ -9,6 +9,10 @@ Built with React frontend, Express/Node backend, MongoDB, database & JWT-based a
 
 [Live Demo](https://task-pilot-pearl.vercel.app)
 
+
+## 
+
+
 ---
 
 ## Login
@@ -38,6 +42,15 @@ npm start
 - Express
 - MongoDB
 - JWT
+
+---
+
+
+## Demo Video
+
+Watch a walkthrough(3-4 minutes) of all the major features of this app:
+[Loom Video](https://drive.google.com/file/d/1y16Ah-MmYGR13OKeT1U5PTyz-Y7FkfA-/view?usp=sharing)
+
 
 ---
 
