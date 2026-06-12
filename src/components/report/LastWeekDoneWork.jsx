@@ -12,9 +12,11 @@ const LastWeekDoneWork = ({ tasks }) => {
   });
 
   const totalTasks = tasks.length;
-  const completedTasks = tasks.filter((t) => t.status === "Completed").length;
+
   const completionRate =
-    totalTasks > 0 ? ((completedTasks / totalTasks) * 100).toFixed(1) : 0;
+    totalTasks > 0
+      ? ((last7DaysTasks.length / totalTasks) * 100).toFixed(1)
+      : 0;
 
   const allTasks = tasks.length;
   const completedTask = last7DaysTasks.length;
