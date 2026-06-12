@@ -16,6 +16,9 @@ const TaskList = ({ tasks }) => {
           task.owners.some((owner) => owner._id === searchParams.get("owner")),
         );
 
+
+        console.log(users)
+
   filteredTask =
     searchParams.get("tag") === null
       ? filteredTask

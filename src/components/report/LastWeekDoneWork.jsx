@@ -11,15 +11,10 @@ const LastWeekDoneWork = ({ tasks }) => {
     return task.status === "Completed" && taskDate >= sevenDaysAgo;
   });
 
-  
-
   const totalTasks = tasks.length;
   const completedTasks = tasks.filter((t) => t.status === "Completed").length;
   const completionRate =
     totalTasks > 0 ? ((completedTasks / totalTasks) * 100).toFixed(1) : 0;
-
-
-  
 
   const allTasks = tasks.length;
   const completedTask = last7DaysTasks.length;
@@ -29,7 +24,7 @@ const LastWeekDoneWork = ({ tasks }) => {
     datasets: [
       {
         label: "Task",
-        data: [allTasks - completedTask, completedTasks],
+        data: [allTasks - completedTask, completedTask],
         backgroundColor: ["#3b82f6", "#22c55e"],
       },
     ],
@@ -74,7 +69,7 @@ const LastWeekDoneWork = ({ tasks }) => {
         </div>
         <div className="bg-gradient-to-br from-green-500 to-green-600 rounded-lg shadow-md p-6 ">
           <div className="text-sm font-medium opacity-90">Completed</div>
-          <div className="text-3xl font-bold mt-2">{completedTasks}</div>
+          <div className="text-3xl font-bold mt-2">{last7DaysTasks.length}</div>
         </div>
         <div className="bg-gradient-to-br from-purple-500 to-purple-600 rounded-lg shadow-md p-6  sm:col-span-2 lg:col-span-1">
           <div className="text-sm font-medium opacity-90">Completion Rate</div>
@@ -90,7 +85,7 @@ const LastWeekDoneWork = ({ tasks }) => {
       <div className="mt-4 pt-4 border-t border-gray-200">
         <div className="flex justify-between text-sm">
           <span className="text-gray-600">Total Completed:</span>
-          <span className="font-semibold text-green-600">{completedTasks}</span>
+          <span className="font-semibold text-green-600">{completedTask}</span>
         </div>
       </div>
     </div>
