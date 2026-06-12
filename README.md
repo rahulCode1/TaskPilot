@@ -23,9 +23,9 @@ Built with React frontend, Express/Node backend, MongoDB, database & JWT-based a
 
 ```
 git clone https://github.com/rahulCode1/TaskPilot.git
-cd FSP1_Assignment_frontend
+cd TaskPilot
 npm install
-npm start  # or `npm start`
+npm start 
 ```
 
 ---

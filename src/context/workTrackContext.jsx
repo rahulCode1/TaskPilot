@@ -20,7 +20,6 @@ const WorkTrackProvider = ({ children }) => {
   const [error, setError] = useState(null);
   const [user, setUser] = useState(localStorage.getItem("userId"));
 
-console.log(teams)
 
   const fetchTeam = async () => {
     try {
@@ -30,7 +29,7 @@ console.log(teams)
       const teams = response?.data?.teams;
       setTeams(teams);
     } catch (error) {
-      console.log(error.response?.data?.message);
+      console.log(error.response?.data?.message || "Failed to fetch team.");
     }
   };
   const fetchUser = async () => {
@@ -42,7 +41,7 @@ console.log(teams)
       const users = response.data.users;
       setUsers(users);
     } catch (error) {
-      console.log(error.response?.data?.message);
+      console.log(error.response?.data?.message || "Failed to fetch users");
     }
   };
 
@@ -87,7 +86,7 @@ console.log(teams)
         teamData,
       );
 
-      console.log(response.data);
+      // console.log(response.data);
 
       setTeams((prev) => [response.data.team, ...prev]);
 

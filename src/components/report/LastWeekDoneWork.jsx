@@ -11,10 +11,15 @@ const LastWeekDoneWork = ({ tasks }) => {
     return task.status === "Completed" && taskDate >= sevenDaysAgo;
   });
 
+  
+
   const totalTasks = tasks.length;
   const completedTasks = tasks.filter((t) => t.status === "Completed").length;
   const completionRate =
     totalTasks > 0 ? ((completedTasks / totalTasks) * 100).toFixed(1) : 0;
+
+
+  
 
   const allTasks = tasks.length;
   const completedTask = last7DaysTasks.length;
@@ -24,7 +29,7 @@ const LastWeekDoneWork = ({ tasks }) => {
     datasets: [
       {
         label: "Task",
-        data: [allTasks - completedTask, completedTask],
+        data: [allTasks - completedTask, completedTasks],
         backgroundColor: ["#3b82f6", "#22c55e"],
       },
     ],
@@ -85,7 +90,7 @@ const LastWeekDoneWork = ({ tasks }) => {
       <div className="mt-4 pt-4 border-t border-gray-200">
         <div className="flex justify-between text-sm">
           <span className="text-gray-600">Total Completed:</span>
-          <span className="font-semibold text-green-600">{completedTask}</span>
+          <span className="font-semibold text-green-600">{completedTasks}</span>
         </div>
       </div>
     </div>
