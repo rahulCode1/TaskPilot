@@ -11,20 +11,23 @@ import privateApi from "../../api/axios";
 
 const Teams = () => {
   const [isDeleteing, setIsDeleteing] = useState(false);
+  const [teamId, setTeamId] = useState("");
   const { teams, setTeams } = useWorkContext();
 
   const removeHandler = async (id) => {
     const toastId = showLoadingToast("Removeing team...");
     try {
+      setTeamId(id);
       setIsDeleteing(true);
       await privateApi.delete(`team/${id}`);
 
       setTeams((prev) => prev.filter((team) => team.id !== id));
+      setTeamId("");
       showSuccessToast(toastId, "team removed successfully.");
     } catch (error) {
       showErrorToast(
         toastId,
-        error.response?.data?.message || "Failed to delete team."
+        error.response?.data?.message || "Failed to delete team.",
       );
     } finally {
       setIsDeleteing(false);
@@ -51,7 +54,10 @@ const Teams = () => {
               <tr>
                 <td>{index + 1}</td>
                 <td>
-                  <Link to={`/team/${team.id}`} className="text-decoration-none">
+                  <Link
+                    to={`/team/${team.id}`}
+                    className="text-decoration-none"
+                  >
                     {team.name}
                   </Link>
                 </td>
@@ -64,14 +70,18 @@ const Teams = () => {
                   <button
                     onClick={() => removeHandler(team.id)}
                     className="btn"
-                    disabled={isDeleteing}
+                    disabled={isDeleteing && team.id === teamId}
                   >
-                    <img
-                      src={remove}
-                      className="img-fluid"
-                      style={{ width: "20px" }}
-                      alt="Remove team"
-                    />
+                    {isDeleteing && team.id === teamId ? (
+                      <span className="spinner-border spinner-border-sm" />
+                    ) : (
+                      <img
+                        src={remove}
+                        className="img-fluid"
+                        style={{ width: "20px" }}
+                        alt="Remove team"
+                      />
+                    )}
                   </button>
                 </td>
               </tr>

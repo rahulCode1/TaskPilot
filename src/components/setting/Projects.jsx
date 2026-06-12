@@ -1,4 +1,4 @@
-import {  Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useWorkContext } from "../../context/workTrackContext";
 import remove from "../../imgs/delete.png";
 import { useState } from "react";
@@ -10,23 +10,26 @@ import {
 import privateApi from "../../api/axios";
 
 const Projects = () => {
+  const [projectId, setProjectId] = useState("");
   const [isDeleteing, setIsDeleteing] = useState(false);
   const { projects, setProjects } = useWorkContext();
 
   const removeHandler = async (id) => {
     const toastId = showLoadingToast("Removeing project...");
     try {
+      setProjectId(id);
       setIsDeleteing(true);
       await privateApi.delete(`project/${id}`);
 
       setProjects((prev) => prev.filter((project) => project.id !== id));
+      setProjectId("");
       showSuccessToast(toastId, "Project removed successfully.");
     } catch (error) {
       console.log(error);
 
       showErrorToast(
         toastId,
-        error.response?.data?.message || "Failed to delete project."
+        error.response?.data?.message || "Failed to delete project.",
       );
     } finally {
       setIsDeleteing(false);
@@ -50,7 +53,10 @@ const Projects = () => {
             <tr>
               <td>{index + 1}</td>
               <td>
-                <Link to={`/projects/${project.id}`} className="text-decoration-none">
+                <Link
+                  to={`/projects/${project.id}`}
+                  className="text-decoration-none"
+                >
                   {project.name}
                 </Link>
               </td>
@@ -61,14 +67,18 @@ const Projects = () => {
                 <button
                   onClick={() => removeHandler(project.id)}
                   className="btn"
-                  disabled={isDeleteing}
+                  disabled={isDeleteing && project.id === projectId}
                 >
-                  <img
-                    src={remove}
-                    className="img-fluid"
-                    style={{ width: "20px" }}
-                    alt="Remove project"
-                  />
+                  {isDeleteing && project.id === projectId ? (
+                    <span className="spinner-border spinner-border-sm" />
+                  ) : (
+                    <img
+                      src={remove}
+                      className="img-fluid"
+                      style={{ width: "20px" }}
+                      alt="Remove project"
+                    />
+                  )}
                 </button>
               </td>
             </tr>

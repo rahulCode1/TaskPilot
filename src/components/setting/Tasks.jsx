@@ -14,39 +14,40 @@ const Tasks = ({ tasks }) => {
   const [isDeleteing, setIsDeleteing] = useState(false);
   const { users, tags, teams, projects } = useWorkContext();
   const { revalidate } = useRevalidator();
+  const [taskId, setTaskId] = useState("");
 
   const [searchParams, setSearchParams] = useSearchParams();
   let filteredTask =
     searchParams.get("owner") === null
       ? tasks
       : tasks.filter((task) =>
-          task.owners.some((owner) => owner._id === searchParams.get("owner"))
+          task.owners.some((owner) => owner._id === searchParams.get("owner")),
         );
 
   filteredTask =
     searchParams.get("tag") === null
       ? filteredTask
       : filteredTask.filter((task) =>
-          task.tags.includes(searchParams.get("tag"))
+          task.tags.includes(searchParams.get("tag")),
         );
   filteredTask =
     searchParams.get("status") === null
       ? filteredTask
       : filteredTask.filter(
-          (task) => task.status === searchParams.get("status")
+          (task) => task.status === searchParams.get("status"),
         );
   filteredTask =
     searchParams.get("team") === null
       ? filteredTask
       : filteredTask.filter(
-          (task) => task.team._id === searchParams.get("team")
+          (task) => task.team._id === searchParams.get("team"),
         );
 
   filteredTask =
     searchParams.get("project") === null
       ? filteredTask
       : filteredTask.filter(
-          (task) => task.project._id === searchParams.get("project")
+          (task) => task.project._id === searchParams.get("project"),
         );
 
   const sortViaCloseTime = [...filteredTask];
@@ -82,22 +83,26 @@ const Tasks = ({ tasks }) => {
   const removeHandler = async (id) => {
     const toastId = showLoadingToast("Removeing task...");
     try {
+      setTaskId(id);
       setIsDeleteing(true);
       const response = await privateApi.delete(`task/${id}`);
       showSuccessToast(
         toastId,
-        response?.data?.message || "Task removed successfully."
+        response?.data?.message || "Task removed successfully.",
       );
+      setTaskId("");
       revalidate();
     } catch (error) {
       showErrorToast(
         toastId,
-        error.response?.data?.message || "Failed to delete task."
+        error.response?.data?.message || "Failed to delete task.",
       );
     } finally {
       setIsDeleteing(false);
     }
   };
+
+  console.log(tasks);
 
   return (
     <main className="py-3">
@@ -357,14 +362,18 @@ const Tasks = ({ tasks }) => {
                       <button
                         onClick={() => removeHandler(task.id)}
                         className="btn"
-                        disabled={isDeleteing}
+                        disabled={isDeleteing && task.id === taskId}
                       >
-                        <img
-                          src={remove}
-                          className="img-fluid"
-                          style={{ width: "20px" }}
-                          alt="Remove task"
-                        />
+                        {isDeleteing && task.id === taskId ? (
+                          <span className="spinner-border spinner-border-sm" />
+                        ) : (
+                          <img
+                            src={remove}
+                            className="img-fluid"
+                            style={{ width: "20px" }}
+                            alt="Remove task"
+                          />
+                        )}
                       </button>
                     </td>
                   </tr>
