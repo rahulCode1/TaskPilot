@@ -16,8 +16,8 @@ Built with React frontend, Express/Node backend, MongoDB, database & JWT-based a
 ## Login
 
 > **Guest**
-> Username: `guest`
-> Password: `guest123`
+> Email: `guest@gmail.com`
+> Password: `123456789`
 
 ---
 
