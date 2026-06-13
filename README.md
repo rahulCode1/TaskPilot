@@ -9,9 +9,7 @@ Built with React frontend, Express/Node backend, MongoDB, database & JWT-based a
 
 [Live Demo](https://task-pilot-pearl.vercel.app)
 
-
-## 
-
+##
 
 ---
 
@@ -29,7 +27,7 @@ Built with React frontend, Express/Node backend, MongoDB, database & JWT-based a
 git clone https://github.com/rahulCode1/TaskPilot.git
 cd TaskPilot
 npm install
-npm start 
+npm start
 ```
 
 ---
@@ -45,12 +43,10 @@ npm start
 
 ---
 
-
 ## Demo Video
 
-Watch a walkthrough(3-4 minutes) of all the major features of this app:
-[Loom Video](https://drive.google.com/file/d/1y16Ah-MmYGR13OKeT1U5PTyz-Y7FkfA-/view?usp=sharing)
-
+Watch a walkthrough of all the major features of this app:
+[Loom Video](https://drive.google.com/file/d/1qoI4RADyGYeATX_Xbaod6MILAp3Ec6TC/view?usp=sharing)
 
 ---
 
@@ -235,9 +231,9 @@ Sample response:
 ### **Post /api/user/login**
 
 User login
-Sample response: 
+Sample response:
 {
-    userId, token
+userId, token
 }
 
 ---
